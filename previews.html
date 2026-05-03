@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Previews — PIXELWAVE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #111118;
+      --card:    #16161f;
+      --card2:   #1c1c28;
+      --accent:  #00f5a0;
+      --accent2: #ff3c6e;
+      --accent3: #7b5cfa;
+      --amber:   #ffb830;
+      --text:    #e8e8f0;
+      --muted:   #6a6a80;
+      --border:  rgba(255,255,255,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+      letter-spacing: 0.08em; color: var(--accent);
+      text-shadow: 0 0 20px rgba(0,245,160,0.45); text-decoration: none;
+    }
+    .logo span { color: var(--accent2); }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+    nav a.active { color: var(--text); }
+    .nav-search {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text); padding: 0.4rem 1rem; border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.8rem;
+      outline: none; transition: border-color 0.2s; width: 160px;
+    }
+    .nav-search:focus { border-color: var(--accent); }
+
+    /* ── TICKER ── */
+    .ticker-bar {
+      background: var(--accent2); color: #fff;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.74rem;
+      letter-spacing: 0.08em; overflow: hidden; padding: 0.42rem 0;
+    }
+    .ticker-track {
+      display: flex; gap: 4rem;
+      animation: ticker 28s linear infinite; white-space: nowrap;
+    }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item::before { content: '◆  '; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, #0d0d1a 0%, #130a1f 50%, #0a0f14 100%);
+      padding: 4rem 2rem 3.5rem;
+      overflow: hidden;
+    }
+
+    /* animated grid bg */
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,60,110,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,60,110,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridShift 8s linear infinite;
+    }
+    @keyframes gridShift {
+      from { background-position: 0 0; }
+      to   { background-position: 48px 48px; }
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(255,60,110,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .page-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1280px; margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb span { margin: 0 0.5rem; }
+
+    .page-hero-inner h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--text);
+    }
+
+    .page-hero-inner h1 em {
+      font-style: normal;
+      color: var(--accent2);
+      text-shadow: 0 0 40px rgba(255,60,110,0.4);
+    }
+
+    .page-hero-desc {
+      max-width: 520px; margin-top: 1.2rem;
+      font-size: 1rem; color: rgba(232,232,240,0.65); line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 2rem;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; letter-spacing: 0.06em;
+      color: var(--accent2); line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 64px; z-index: 90;
+    }
+    .filter-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      overflow-x: auto; height: 52px;
+      scrollbar-width: none;
+    }
+    .filter-inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0;
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 3px;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+    .filter-btn.active {
+      background: var(--accent2); border-color: var(--accent2);
+      color: #fff;
+    }
+    .filter-divider {
+      width: 1px; height: 20px; background: var(--border);
+      flex-shrink: 0; margin: 0 0.5rem;
+    }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 1280px; margin: 0 auto; padding: 3rem 2rem;
+      display: grid; grid-template-columns: 1fr 300px; gap: 3rem;
+    }
+
+    /* ── FEATURED PREVIEW (WIDE CARD) ── */
+    .featured-preview {
+      position: relative; border-radius: 8px; overflow: hidden;
+      height: 420px; cursor: pointer; margin-bottom: 2.5rem;
+    }
+    .featured-preview img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .featured-preview:hover img { transform: scale(1.03); }
+
+    .featured-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    }
+
+    .featured-content {
+      position: absolute; bottom: 0; left: 0;
+      padding: 2.5rem; max-width: 560px;
+    }
+
+    .preview-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent2); color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 3px;
+      margin-bottom: 0.9rem;
+    }
+    .preview-label::before { content: '▶'; font-size: 0.55rem; }
+
+    .featured-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; letter-spacing: 0.03em; line-height: 1.0;
+      margin-bottom: 0.8rem;
+    }
+    .featured-content p {
+      font-size: 0.93rem; color: rgba(232,232,240,0.72); line-height: 1.65;
+    }
+    .featured-meta {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 1.2rem;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted);
+    }
+    .featured-meta .author { color: var(--accent2); }
+    .featured-meta .playtime {
+      background: rgba(255,255,255,0.07); border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem; border-radius: 2px;
+    }
+
+    .featured-badge {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: rgba(0,0,0,0.7); border: 1px solid rgba(255,60,110,0.4);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 0.9rem; border-radius: 6px; text-align: center;
+    }
+    .featured-badge .badge-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase; display: block;
+      margin-bottom: 0.2rem;
+    }
+    .featured-badge .badge-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; color: var(--amber); letter-spacing: 0.05em;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem; letter-spacing: 0.08em; white-space: nowrap;
+    }
+    .section-header::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .see-all {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.72rem;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .see-all:hover { color: var(--accent2); }
+
+    /* ── PREVIEW CARDS GRID ── */
+    .previews-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
+    }
+
+    .preview-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .preview-card:hover {
+      border-color: rgba(255,60,110,0.35);
+      transform: translateY(-4px);
+    }
+
+    .preview-card-img-wrap {
+      position: relative; height: 168px; overflow: hidden;
+    }
+    .preview-card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .preview-card:hover .preview-card-img-wrap img { transform: scale(1.07); }
+
+    .preview-card-platform {
+      position: absolute; top: 0.7rem; right: 0.7rem;
+      display: flex; gap: 0.3rem;
+    }
+    .pill {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted); padding: 0.15rem 0.45rem; border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hype-bar-wrap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.4rem 0.7rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hype-label {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.58rem;
+      color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .hype-track {
+      flex: 1; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px;
+    }
+    .hype-fill { height: 100%; border-radius: 2px; background: var(--amber); }
+
+    .preview-card-body { padding: 1.1rem; flex: 1; display: flex; flex-direction: column; }
+    .preview-card-tag {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.5rem;
+    }
+    .preview-card-body h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; letter-spacing: 0.04em; line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .preview-card-body p {
+      font-size: 0.82rem; color: var(--muted); line-height: 1.55; flex: 1;
+    }
+    .preview-card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--border);
+      font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--muted);
+    }
+    .release-chip {
+      background: rgba(255,184,48,0.1); border: 1px solid rgba(255,184,48,0.25);
+      color: var(--amber); padding: 0.15rem 0.5rem; border-radius: 2px; font-size: 0.62rem;
+    }
+
+    /* ── HANDS-ON EXCLUSIVE ── */
+    .hands-on-list { display: flex; flex-direction: column; gap: 1px; }
+
+    .hands-on-item {
+      display: grid; grid-template-columns: 100px 1fr;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      margin-bottom: 1rem;
+    }
+    .hands-on-item:hover {
+      border-color: rgba(123,92,250,0.35);
+      transform: translateX(4px);
+    }
+
+    .hands-on-img { height: 100%; object-fit: cover; display: block; width: 100%; }
+
+    .hands-on-body { padding: 1rem 1.1rem; }
+    .hands-on-body .tag-small {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent3);
+      margin-bottom: 0.35rem;
+    }
+    .hands-on-body h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem; letter-spacing: 0.04em; line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    .hands-on-body p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .hands-on-meta {
+      display: flex; gap: 1rem; align-items: center; margin-top: 0.7rem;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted);
+    }
+    .hands-on-meta .excl {
+      color: var(--accent3); letter-spacing: 0.08em;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    /* Most Anticipated */
+    .anticipated-list { display: flex; flex-direction: column; }
+
+    .anticipated-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .anticipated-item:hover { opacity: 0.75; }
+    .anticipated-item:last-child { border-bottom: none; }
+
+    .anticipated-rank {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+      min-width: 28px; text-align: center; color: rgba(255,255,255,0.12);
+    }
+    .anticipated-item:first-child .anticipated-rank { color: var(--amber); }
+    .anticipated-item:nth-child(2) .anticipated-rank { color: rgba(255,184,48,0.5); }
+    .anticipated-item:nth-child(3) .anticipated-rank { color: rgba(255,184,48,0.25); }
+
+    .anticipated-thumb {
+      width: 48px; height: 48px; border-radius: 4px;
+      object-fit: cover; flex-shrink: 0;
+    }
+
+    .anticipated-info { flex: 1; }
+    .anticipated-info h4 { font-size: 0.86rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .anticipated-info .genre {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted);
+    }
+
+    .hype-pct {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      color: var(--amber); letter-spacing: 0.04em;
+    }
+
+    /* Genre filter widget */
+    .genre-widget {
+      background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.3rem;
+    }
+    .genre-widget h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+      letter-spacing: 0.08em; margin-bottom: 1rem;
+    }
+    .genre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .genre-tile {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px; padding: 0.55rem 0.6rem;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer;
+      transition: all 0.2s; text-align: center;
+    }
+    .genre-tile:hover { border-color: var(--accent2); color: var(--accent2); }
+    .genre-tile.active { background: rgba(255,60,110,0.12); border-color: rgba(255,60,110,0.4); color: var(--accent2); }
+
+    /* Newsletter */
+    .newsletter-box {
+      background: linear-gradient(135deg, rgba(123,92,250,0.12), rgba(255,60,110,0.08));
+      border: 1px solid rgba(123,92,250,0.25);
+      border-radius: 6px; padding: 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .newsletter-box::before {
+      content: '◈';
+      position: absolute; right: -0.5rem; top: -0.5rem;
+      font-size: 6rem; color: rgba(123,92,250,0.07);
+      line-height: 1;
+    }
+    .newsletter-box h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem;
+      letter-spacing: 0.06em; margin-bottom: 0.4rem;
+    }
+    .newsletter-box p { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .nl-input {
+      width: 100%; background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+      color: var(--text); padding: 0.5rem 0.8rem; border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
+      outline: none; margin-bottom: 0.6rem; transition: border-color 0.2s;
+    }
+    .nl-input:focus { border-color: var(--accent3); }
+    .nl-btn {
+      width: 100%; background: var(--accent3); border: none;
+      color: #fff; padding: 0.55rem; border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nl-btn:hover { opacity: 0.85; }
+
+    /* ── DEVELOPER SPOTLIGHT ── */
+    .spotlight-section {
+      max-width: 1280px; margin: 0 auto 4rem; padding: 0 2rem;
+    }
+    .spotlight-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .spotlight-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .spotlight-card:hover { border-color: rgba(0,245,160,0.3); transform: translateY(-3px); }
+
+    .spotlight-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+
+    .spotlight-body { padding: 1.1rem; }
+    .studio-name {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+      color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .spotlight-body h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 0.04em; line-height: 1.1; margin-bottom: 0.4rem;
+    }
+    .spotlight-body p { font-size: 0.79rem; color: var(--muted); line-height: 1.5; }
+    .spotlight-foot {
+      padding: 0.7rem 1.1rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted);
+    }
+    .spotlight-foot .dev-type { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem; text-align: center;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
+      color: var(--muted); letter-spacing: 0.08em;
+    }
+    footer .footer-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.6rem; display: block;
+    }
+    footer span { color: var(--accent2); }
+
+    /* ── PAGE LOAD ANIMATION ── */
+    .fade-in {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .page-body { grid-template-columns: 1fr; }
+      .previews-grid { grid-template-columns: 1fr; }
+      .spotlight-grid { grid-template-columns: repeat(2, 1fr); }
+      nav a:not(.active) { display: none; }
+    }
+    @media (max-width: 580px) {
+      .spotlight-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="game-news.html" class="logo">PIXEL<span>WAVE</span></a>
+    <nav>
+      <a href="game-news.html">News</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="previews.html" class="active">Previews</a>
+      <a href="#">Esports</a>
+      <a href="#">Guides</a>
+      <input class="nav-search" type="text" placeholder="Search previews…"/>
+    </nav>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">Silksong preview embargo lifts May 10th</span>
+    <span class="ticker-item">GTA VI hands-on sessions confirmed for press</span>
+    <span class="ticker-item">Elden Ring DLC playthrough: 6-hour preview event announced</span>
+    <span class="ticker-item">Summer Game Fest 2026 — 40+ games confirmed</span>
+    <span class="ticker-item">Metroid Prime 4 gameplay deep-dive drops this Friday</span>
+    <span class="ticker-item">Silksong preview embargo lifts May 10th</span>
+    <span class="ticker-item">GTA VI hands-on sessions confirmed for press</span>
+    <span class="ticker-item">Elden Ring DLC playthrough: 6-hour preview event announced</span>
+    <span class="ticker-item">Summer Game Fest 2026 — 40+ games confirmed</span>
+    <span class="ticker-item">Metroid Prime 4 gameplay deep-dive drops this Friday</span>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb fade-in">
+      <a href="game-news.html">Home</a><span>/</span> Previews
+    </div>
+    <h1 class="fade-in delay-1">GAME<br/><em>PREVIEWS</em></h1>
+    <p class="page-hero-desc fade-in delay-2">
+      Hands-on impressions, early access reports, and exclusive first-looks at the most anticipated games — before the review embargo lifts.
+    </p>
+    <div class="hero-stats fade-in delay-3">
+      <div class="stat">
+        <span class="stat-num">48</span>
+        <span class="stat-label">Active Previews</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12</span>
+        <span class="stat-label">Exclusive Hands-On</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">6</span>
+        <span class="stat-label">Embargoes This Month</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Hands-On</button>
+    <button class="filter-btn">Exclusive</button>
+    <button class="filter-btn">Early Access</button>
+    <div class="filter-divider"></div>
+    <button class="filter-btn">RPG</button>
+    <button class="filter-btn">Action</button>
+    <button class="filter-btn">FPS</button>
+    <button class="filter-btn">Indie</button>
+    <button class="filter-btn">Strategy</button>
+    <button class="filter-btn">Horror</button>
+    <div class="filter-divider"></div>
+    <button class="filter-btn">PC</button>
+    <button class="filter-btn">PS5</button>
+    <button class="filter-btn">Xbox</button>
+    <button class="filter-btn">Switch 2</button>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+  <main>
+
+    <!-- FEATURED -->
+    <div class="section-header fade-in">
+      <h2>Editor's Pick</h2>
+    </div>
+
+    <div class="featured-preview fade-in delay-1">
+      <img src="https://images.unsplash.com/photo-1580234811497-9df7fd2f357e?w=1200&q=80" alt="GTA VI"/>
+      <div class="featured-overlay"></div>
+      <div class="featured-badge">
+        <span class="badge-label">Hype Score</span>
+        <span class="badge-val">97%</span>
+      </div>
+      <div class="featured-content">
+        <div class="preview-label">Exclusive Hands-On</div>
+        <h2>GTA VI: 4 Hours in Vice City Changed Everything We Expected</h2>
+        <p>Rockstar flew us out to Edinburgh for a closed-door session with the most anticipated game of the decade. What we played was breathtaking, terrifying in its ambition, and occasionally frustrating — in the best possible way.</p>
+        <div class="featured-meta">
+          <span class="author">Marcus Reyes</span>
+          <span>·</span>
+          <span>May 1, 2026</span>
+          <span>·</span>
+          <span class="playtime">4 HRS PLAYED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW GRID -->
+    <div class="section-header fade-in">
+      <h2>Latest Previews</h2>
+      <a href="#" class="see-all">All Previews →</a>
+    </div>
+
+    <div class="previews-grid">
+
+      <div class="preview-card fade-in delay-1">
+        <div class="preview-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=600&q=80" alt="Hollow Knight Silksong"/>
+          <div class="preview-card-platform">
+            <span class="pill">PC</span>
+            <span class="pill">Switch 2</span>
+          </div>
+          <div class="hype-bar-wrap">
+            <span class="hype-label">Hype</span>
+            <div class="hype-track"><div class="hype-fill" style="width:94%"></div></div>
+            <span class="hype-label">94%</span>
+          </div>
+        </div>
+        <div class="preview-card-body">
+          <div class="preview-card-tag">▶ Hands-On Preview</div>
+          <h3>Hollow Knight: Silksong — Worth Every Year of Waiting</h3>
+          <p>We played two hours of Hornet's debut outing and walked away with sweaty palms and an enormous grin. Team Cherry hasn't just made a sequel — they've reinvented themselves.</p>
+          <div class="preview-card-footer">
+            <span>Priya Nair · Apr 28</span>
+            <span class="release-chip">Jun 12, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card fade-in delay-2">
+        <div class="preview-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556438064-2d7646166914?w=600&q=80" alt="Metroid Prime 4"/>
+          <div class="preview-card-platform">
+            <span class="pill">Switch 2</span>
+          </div>
+          <div class="hype-bar-wrap">
+            <span class="hype-label">Hype</span>
+            <div class="hype-track"><div class="hype-fill" style="width:88%"></div></div>
+            <span class="hype-label">88%</span>
+          </div>
+        </div>
+        <div class="preview-card-body">
+          <div class="preview-card-tag">▶ First Look</div>
+          <h3>Metroid Prime 4 Is the Isolation Simulator We Didn't Know We Needed</h3>
+          <p>Nintendo's long-gestating sci-fi epic is darker, lonelier, and more mechanically refined than its predecessors. Samus has never felt this powerful — or this alone.</p>
+          <div class="preview-card-footer">
+            <span>Layla Hassan · Apr 24</span>
+            <span class="release-chip">Aug 22, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card fade-in delay-1">
+        <div class="preview-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1605979257913-1704eb7b6246?w=600&q=80" alt="Baldurs Gate 4"/>
+          <div class="preview-card-platform">
+            <span class="pill">PC</span>
+            <span class="pill">PS5</span>
+          </div>
+          <div class="hype-bar-wrap">
+            <span class="hype-label">Hype</span>
+            <div class="hype-track"><div class="hype-fill" style="width:79%"></div></div>
+            <span class="hype-label">79%</span>
+          </div>
+        </div>
+        <div class="preview-card-body">
+          <div class="preview-card-tag">▶ Early Access Report</div>
+          <h3>Baldur's Gate 4: Everything We Know After Playing the Alpha</h3>
+          <p>Larian's alpha was rough around the edges but unmistakably theirs. Character creation alone kept us busy for 45 minutes. Here's the full breakdown.</p>
+          <div class="preview-card-footer">
+            <span>Dmitri Volkov · Apr 20</span>
+            <span class="release-chip">TBA 2027</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card fade-in delay-2">
+        <div class="preview-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80" alt="Dragon Age"/>
+          <div class="preview-card-platform">
+            <span class="pill">PC</span>
+            <span class="pill">Xbox</span>
+            <span class="pill">PS5</span>
+          </div>
+          <div class="hype-bar-wrap">
+            <span class="hype-label">Hype</span>
+            <div class="hype-track"><div class="hype-fill" style="width:61%"></div></div>
+            <span class="hype-label">61%</span>
+          </div>
+        </div>
+        <div class="preview-card-body">
+          <div class="preview-card-tag">▶ Preview Event</div>
+          <h3>Dragon Age: Solace — BioWare's Quiet Comeback Begins Here</h3>
+          <p>After years of turbulence, BioWare is back with a grounded, character-driven RPG that feels like a love letter to Origins fans. Cautiously optimistic doesn't quite cover it.</p>
+          <div class="preview-card-footer">
+            <span>Marcus Reyes · Apr 15</span>
+            <span class="release-chip">Q1 2027</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- HANDS-ON EXCLUSIVES -->
+    <div class="section-header" style="margin-top:2.5rem;">
+      <h2>Hands-On Exclusives</h2>
+      <a href="#" class="see-all">View All →</a>
+    </div>
+
+    <div class="hands-on-list">
+
+      <div class="hands-on-item">
+        <img class="hands-on-img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=200&q=80" alt=""/>
+        <div class="hands-on-body">
+          <div class="tag-small">★ Exclusive · FPS</div>
+          <h3>Counter-Strike 2: Assault on Militia — New Mode Hands-On</h3>
+          <p>Valve's new asymmetric mode flips CS2 on its head with randomized objectives. We played 6 rounds and are still thinking about it.</p>
+          <div class="hands-on-meta">
+            <span class="excl">Exclusive Access</span>
+            <span>·</span>
+            <span>Dmitri Volkov</span>
+            <span>·</span>
+            <span>2 HRS PLAYED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hands-on-item">
+        <img class="hands-on-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200&q=80" alt=""/>
+        <div class="hands-on-body">
+          <div class="tag-small">★ Exclusive · Action RPG</div>
+          <h3>Elden Ring: Shadow of the Erdtree 2 — Dark, Dense, Devastating</h3>
+          <p>FromSoftware brought us to Tokyo for a 3-hour session. Every minute was punishing in the best possible way. New boss design is next-level.</p>
+          <div class="hands-on-meta">
+            <span class="excl">Tokyo Preview Event</span>
+            <span>·</span>
+            <span>Priya Nair</span>
+            <span>·</span>
+            <span>3 HRS PLAYED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hands-on-item">
+        <img class="hands-on-img" src="https://images.unsplash.com/photo-1640272955300-f8c7c278ae90?w=200&q=80" alt=""/>
+        <div class="hands-on-body">
+          <div class="tag-small">★ Exclusive · Platformer</div>
+          <h3>Astro Bot 2: An Hour With Sony's Most Charming Sequel</h3>
+          <p>Team Asobi is back with a PlayStation 6 showcase title. It's adorable, inventive, and uses the DualSense 2 in ways we didn't think were possible.</p>
+          <div class="hands-on-meta">
+            <span class="excl">PS6 Preview Event</span>
+            <span>·</span>
+            <span>Layla Hassan</span>
+            <span>·</span>
+            <span>1 HR PLAYED</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Most Anticipated -->
+    <div>
+      <div class="section-header">
+        <h2>Most Anticipated</h2>
+      </div>
+      <div class="anticipated-list">
+        <div class="anticipated-item">
+          <span class="anticipated-rank">1</span>
+          <img class="anticipated-thumb" src="https://images.unsplash.com/photo-1580234811497-9df7fd2f357e?w=100&q=80" alt=""/>
+          <div class="anticipated-info">
+            <h4>GTA VI</h4>
+            <span class="genre">Open World · Action</span>
+          </div>
+          <span class="hype-pct">97%</span>
+        </div>
+        <div class="anticipated-item">
+          <span class="anticipated-rank">2</span>
+          <img class="anticipated-thumb" src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=100&q=80" alt=""/>
+          <div class="anticipated-info">
+            <h4>Hollow Knight: Silksong</h4>
+            <span class="genre">Metroidvania · Indie</span>
+          </div>
+          <span class="hype-pct">94%</span>
+        </div>
+        <div class="anticipated-item">
+          <span class="anticipated-rank">3</span>
+          <img class="anticipated-thumb" src="https://images.unsplash.com/photo-1605979257913-1704eb7b6246?w=100&q=80" alt=""/>
+          <div class="anticipated-info">
+            <h4>Baldur's Gate 4</h4>
+            <span class="genre">RPG · Turn-Based</span>
+          </div>
+          <span class="hype-pct">79%</span>
+        </div>
+        <div class="anticipated-item">
+          <span class="anticipated-rank">4</span>
+          <img class="anticipated-thumb" src="https://images.unsplash.com/photo-1556438064-2d7646166914?w=100&q=80" alt=""/>
+          <div class="anticipated-info">
+            <h4>Metroid Prime 4</h4>
+            <span class="genre">FPS · Adventure</span>
+          </div>
+          <span class="hype-pct">88%</span>
+        </div>
+        <div class="anticipated-item">
+          <span class="anticipated-rank">5</span>
+          <img class="anticipated-thumb" src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=100&q=80" alt=""/>
+          <div class="anticipated-info">
+            <h4>Dragon Age: Solace</h4>
+            <span class="genre">RPG · BioWare</span>
+          </div>
+          <span class="hype-pct">61%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Genre Filter -->
+    <div class="genre-widget">
+      <h3>Browse by Genre</h3>
+      <div class="genre-grid">
+        <div class="genre-tile active">All</div>
+        <div class="genre-tile">RPG</div>
+        <div class="genre-tile">Action</div>
+        <div class="genre-tile">FPS</div>
+        <div class="genre-tile">Indie</div>
+        <div class="genre-tile">Strategy</div>
+        <div class="genre-tile">Horror</div>
+        <div class="genre-tile">Sports</div>
+        <div class="genre-tile">Puzzle</div>
+        <div class="genre-tile">Sim</div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter-box">
+      <h3>Preview Alerts</h3>
+      <p>Get notified the moment a new hands-on or exclusive preview drops. No spam, just signal.</p>
+      <input class="nl-input" type="email" placeholder="your@email.com"/>
+      <button class="nl-btn">Subscribe →</button>
+    </div>
+
+  </aside>
+</div>
+
+<!-- DEVELOPER SPOTLIGHT -->
+<div class="spotlight-section">
+  <div class="section-header">
+    <h2>Developer Spotlight</h2>
+    <a href="#" class="see-all">All Studios →</a>
+  </div>
+  <div class="spotlight-grid">
+
+    <div class="spotlight-card">
+      <img class="spotlight-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80" alt=""/>
+      <div class="spotlight-body">
+        <div class="studio-name">Team Cherry</div>
+        <h3>Inside Silksong: How 3 People Built a Universe</h3>
+        <p>An intimate look at how one of gaming's smallest studios is about to deliver one of its biggest games. Director Ari Gibson talks creative process, pressure, and Hornet.</p>
+      </div>
+      <div class="spotlight-foot">
+        <span>Apr 26, 2026</span>
+        <span class="dev-type">Indie</span>
+      </div>
+    </div>
+
+    <div class="spotlight-card">
+      <img class="spotlight-img" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=600&q=80" alt=""/>
+      <div class="spotlight-body">
+        <div class="studio-name">Rockstar Games</div>
+        <h3>The Technology Behind GTA VI's Living, Breathing Vice City</h3>
+        <p>Rockstar's tech lead reveals the proprietary simulation systems making Vice City feel like a real city — traffic AI, weather, and crowd behavior that still surprises even the devs.</p>
+      </div>
+      <div class="spotlight-foot">
+        <span>Apr 20, 2026</span>
+        <span class="dev-type">AAA</span>
+      </div>
+    </div>
+
+    <div class="spotlight-card">
+      <img class="spotlight-img" src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=600&q=80" alt=""/>
+      <div class="spotlight-body">
+        <div class="studio-name">FromSoftware</div>
+        <h3>Miyazaki on Building the Sequel Nobody Asked For (But Everyone Wanted)</h3>
+        <p>In a rare sit-down, the director of Elden Ring discusses the philosophy behind the new DLC, the balance between challenge and accessibility, and what comes after.</p>
+      </div>
+      <div class="spotlight-foot">
+        <span>Apr 12, 2026</span>
+        <span class="dev-type">AAA</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">PIXEL<span>WAVE</span></span>
+  © 2026 PixelWave Media · All rights reserved · Contact · Privacy Policy · Advertise
+</footer>
+
+<script>
+  // Filter button toggle
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.filter-inner').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Genre tile toggle
+  document.querySelectorAll('.genre-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      document.querySelectorAll('.genre-tile').forEach(t => t.classList.remove('active'));
+      tile.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
