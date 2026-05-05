@@ -1,0 +1,135 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="photos/favicon.svg" type="image/svg+xml">
+  <title>Game News Login</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#0f172a; color:#e2e8f0; }
+    header { background:#020617; padding:20px; text-align:center; border-bottom:2px solid #1e293b; }
+    header h1 { margin:0; color:#38bdf8; }
+    nav { background:#1e293b; padding:10px; text-align:center; }
+    nav a { color:#e2e8f0; margin:0 15px; text-decoration:none; font-weight:bold; }
+    nav a:hover { color:#38bdf8; }
+
+    .container { width:90%; max-width:420px; margin:40px auto; background:#1e293b; padding:25px; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.4); }
+    .container h2 { text-align:center; color:#38bdf8; margin-top:0; }
+
+    form input {
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border:none;
+      border-radius:6px;
+    }
+
+    .row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:13px;
+      color:#94a3b8;
+    }
+
+    .row label {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+    }
+
+    .row input[type="checkbox"] {
+      width:auto;
+      margin:0;
+    }
+
+    .row a { color:#38bdf8; text-decoration:none; }
+    .row a:hover { text-decoration:underline; }
+    .row a { color:#38bdf8; text-decoration:none; }
+    .row a:hover { text-decoration:underline; }
+
+    form button {
+      width:100%;
+      padding:12px;
+      background:#38bdf8;
+      border:none;
+      border-radius:6px;
+      font-weight:bold;
+      cursor:pointer;
+      color:#020617;
+      margin-top:10px;
+    }
+    form button:hover { background:#0ea5e9; }
+
+    .divider { text-align:center; margin:15px 0; font-size:13px; color:#94a3b8; }
+
+    .alt {
+      display:flex; gap:10px;
+    }
+    .alt button {
+      flex:1;
+      padding:10px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      background:#020617;
+      color:#e2e8f0;
+    }
+    .alt button:hover { background:#111827; }
+
+    .small-text { text-align:center; font-size:13px; margin-top:15px; color:#94a3b8; }
+    .small-text a { color:#38bdf8; text-decoration:none; }
+
+    footer { background:#020617; text-align:center; padding:10px; margin-top:40px; border-top:2px solid #1e293b; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 Game News</h1>
+  <p>Welcome back</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign up</a>
+        <a href="login.html">Login</a>
+</nav>
+
+<div class="container">
+  <h2>Login</h2>
+
+  <form>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+
+    <div class="row">
+      <label><input type="checkbox"> Remember me</label>
+      <a href="forget.html">Forgot password?</a>
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="divider">or</div>
+
+  <div class="alt">
+    <button>Login with Google</button>
+    <button>Login with Discord</button>
+  </div>
+
+  <div class="small-text">
+    Don’t have an account? <a href="signup.html">Sign up</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Game News</p>
+</footer>
+
+</body>
+</html>
